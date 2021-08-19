@@ -50,7 +50,6 @@ To run this integration, you'll need your Kentico Kontent project + a [Recombee 
     [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Kentico/kontent-example-integration-recombee)
 
     After you deploy the project into Netlify, you'll find two functions there:
-    ![netlify-functions](docs/netlify-functions.png)
     1. **recombee-init-function** is the function that imports or refreshes all content of selected content type from Kontent into Recombee.
     2. **recombee-sync-webhook** is the function you want to call via a webhook from Kontent to notify the integration that there's been a change to your content and that Recombee database has to be potentialy updated.
 
