@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false
+  },
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Recommended",
+  "include": [
+    "src/lambda/*.ts", "decs.d.ts"
+, "src/lambda/recombee-sync-webhook.ts"  ],
+  "typeRoots": [
+    "node_modules/@types", 
+    "lodash"
+  ]
+}

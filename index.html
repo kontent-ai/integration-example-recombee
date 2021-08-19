@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Recombee Initializer for Kentico Kontent</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!-- Kentico Custom elements API-->
+    <script src="https://app.kontent.ai/js-api/custom-element/v1/custom-element.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/rxjs@6.4.0/bundles/rxjs.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@kentico/kontent-delivery/_bundles/kontent-delivery.browser.umd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="/src/recombee-recommendations.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<style>
+    .btn-green {
+        background: #3bc4a1;
+        border: 1px solid #3bc4a1;
+        color: #fff;
+        border-radius: 20px;
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .btn-green:hover {
+        background: white;
+        border: 1px solid #3bc4a1;
+        color: #3bc4a1;
+        transition: all .2s ease-in-out;
+    }
+
+    .btn-green-inverted {
+        background: white;
+        border: 1px solid #3bc4a1;
+        color: #3bc4a1;
+        border-radius: 20px;
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .btn-green-inverted:hover {
+        background: #3bc4a1;
+        border: 1px solid #3bc4a1;
+        color: #fff;
+        transition: all .2s ease-in-out;
+
+    }
+
+    a.clear {
+        text-decoration: none;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="section">
+            <div style="float:right; text-align: center;">powered by<img width="110" style="vertical-align:middle"
+                    src="https://assets-us-01.kc-usercontent.com:443/4e9bdd7a-2db8-4c33-a13a-0c368ec2f108/ff394773-c4e3-4bd0-84f7-9f1909568909/Recombee@2x.png"
+                    alt="recombee logo" /></div>
+            <h5>Manage content recommendations</h5>
+        </div>
+        <div class="divider"></div>
+        <div class="section">
+            <strong class="u-spacing-l title-medium">Registered types: </strong>
+            <span id="registered_types">
+            </span>
+        </div>
+        <div class="divider"></div>
+        <div class="section">
+            <strong class="title-medium">Add new type/refresh existing:</strong>
+            <br />
+            <div class="row">
+                <div class="col s2"></div>
+                <div class="col s8">
+                    <div class="input-field">
+                        <input type="text" id="autocomplete-input" class="autocomplete">
+                    </div>
+                </div>
+                <div class="col s2" style="vertical-align: bottom; height: 79px;">
+                    <button class="btn-green modal-trigger" data-target="modal1"
+                        style="margin-top: 10px;">Synchronize</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you wish to synchronize the selected content type with Recombee?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close btn-green-inverted">Cancel</a>
+            <a href="javascript:register();" class="btn-green">Proceed</a>
+        </div>
+    </div>
+</body>
+
+</html>

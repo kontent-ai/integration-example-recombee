@@ -1,0 +1,47 @@
+{
+  "name": "kontent-recombee-sync",
+  "version": "1.0.0",
+  "author": "Rosta Striz <rosta.striz@kentico.com>",
+  "license": "MIT",
+  "description": "",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/strizr/kontent-recombee-sync.git"
+  },
+  "bugs": {
+    "url": "https://github.com/strizr/kontent-recombee-sync/issues"
+  },
+  "homepage": "https://github.com/strizr/kontent-recombee-sync#readme",
+  "dependencies": {
+    "@kentico/kontent-delivery": "^10.3.0",
+    "@kentico/kontent-management": "^0.4.10",
+    "@kentico/kontent-webhook-helper": "^1.1.0",
+    "@netlify/functions": "^0.7.2",
+    "@types/core-js": "^2.5.4",
+    "@types/lodash": "^4.14.172",
+    "axios": "^0.21.1",
+    "crypto": "^1.0.1",
+    "encoding": "^0.1.13",
+    "lodash": "^4.17.21",
+    "netlify-cli": "^6.1.1",
+    "recombee-api-client": "^3.2.0",
+    "rxjs": "^6.6.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/aws-lambda": "^8.10.59",
+    "@types/node": "^16.3.2",
+    "babel-loader": "^8.2.2",
+    "netlify-lambda": "^2.0.1",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.7",
+    "webpack": "^4.46.0"
+  },
+  "scripts": {
+    "build": "netlify-lambda build src/lambda",
+    "ts-check": "tsc --noEmit --lib ES2015"
+  }
+}
