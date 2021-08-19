@@ -1,3 +1,5 @@
+[![Review][review]](https://kontent.ai/integrations/recombee)
+
 [![Core integration][core-shield]](https://kontent.ai/integrations/recombee)
 [![Gallery][gallery-shield]](https://kentico.github.io/kontent-custom-element-samples/gallery/)
 
@@ -164,6 +166,7 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 
 
 [last-commit]: https://img.shields.io/github/last-commit/Kentico/kontent-example-integration-recombee?style=for-the-badge
+[review]: https://img.shields.io/static/v1?label=warning&message=under%20review&style=for-the-badge&color=orange
 [contributors-shield]: https://img.shields.io/github/contributors/Kentico/kontent-example-integration-recombee.svg?style=for-the-badge
 [contributors-url]: https://github.com/Kentico/kontent-example-integration-recombee/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/Kentico/kontent-example-integration-recombee.svg?style=for-the-badge
