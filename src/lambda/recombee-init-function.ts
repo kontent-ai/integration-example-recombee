@@ -31,8 +31,13 @@ export async function handler(event: APIGatewayEvent, context: Context) {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  if (!event.body)
+  if (!RECOMBEE_API_KEY) {
+    return { statusCode: 400, body: "Missing Netlify environment variable, please check the documentation"}
+  }
+
+  if (!event.body) {
     return { statusCode: 200, body: [] };
+  }
 
   //Get config and setup client for Kontent and Recombee  
   const config = getConfiguration(event.body);
