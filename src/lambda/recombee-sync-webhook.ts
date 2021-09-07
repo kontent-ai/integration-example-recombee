@@ -23,7 +23,6 @@ export async function handler(event: APIGatewayEvent, context: Context) {
     return { statusCode: 400, body: "Missing Netlify environment variable, please check the documentation" }
   }
 
-
   const recombeeApiId = event.queryStringParameters?.apiId;
   const typesToWatch = event.queryStringParameters?.types?.split(",");
   const languagesToWatch = event.queryStringParameters?.languages?.split(",");

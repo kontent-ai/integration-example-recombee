@@ -30,7 +30,7 @@ function register() {
                 "projectId": config.projectId,
                 "language": config.language.codename,
                 "contentType": contentType,
-                "recombeeDb": config.recombeeAppId
+                "recombeeApiId": config.recombeeApiId
             }
         })
             .catch((error) => {

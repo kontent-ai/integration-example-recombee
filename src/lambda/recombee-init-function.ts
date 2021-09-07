@@ -16,7 +16,7 @@ function getConfiguration(body: string): RecommendationProjectConfiguration {
       contentType: jsonBody.contentType
     },
     recombee: {
-      database: jsonBody.recombeeDb,
+      database: jsonBody.recombeeApiId,
       key: RECOMBEE_API_KEY
     }
   };
