@@ -19,6 +19,10 @@ export async function handler(event: APIGatewayEvent, context: Context) {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
+  if (!RECOMBEE_API_KEY || !KONTENT_SECRET) {
+    return { statusCode: 400, body: "Missing Netlify environment variable, please check the documentation" }
+  }
+
   const recombeeApiId = event.queryStringParameters?.apiId;
   const typesToWatch = event.queryStringParameters?.types?.split(",");
   const languagesToWatch = event.queryStringParameters?.languages?.split(",");
@@ -33,9 +37,9 @@ export async function handler(event: APIGatewayEvent, context: Context) {
     key: RECOMBEE_API_KEY
   }
 
-
+  const signitureHelper = new SignatureHelper();
   // Consistency check - make sure your netlify environment variable and your webhook secret matches
-  if (!event.headers['x-kc-signature'] || !SignatureHelper.isValidSignatureFromString(event.body, KONTENT_SECRET, event.headers['x-kc-signature'])) {
+  if (!event.headers['x-kc-signature'] || !signitureHelper.isValidSignatureFromString(event.body, KONTENT_SECRET, event.headers['x-kc-signature'].toString())) {
     return { statusCode: 401, body: "Unauthorized" };
   }
 
