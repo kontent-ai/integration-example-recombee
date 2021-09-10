@@ -1,7 +1,3 @@
-[![Review][review]](https://kontent.ai/integrations/recombee)
-
-> ⚠ This repository is under the review. Please be noted that any infromation and code might be a subject of change.
-
 [![Core integration][core-shield]](https://kontent.ai/integrations/recombee)
 [![Gallery][gallery-shield]](https://kentico.github.io/kontent-custom-element-samples/gallery/)
 
