@@ -11,8 +11,8 @@
 [![GitHub Discussions][discussion-shield]](https://github.com/Kentico/Home/discussions)
 
 <p align="center">
-<image src="docs/01-kk-logo-main.svg" alt="kontent logo" width="250" style="vertical-align: middle;"/>
-<image src="docs/recombee-logo.png" alt="recombee logo" width="350" style="vertical-align: middle;" >
+<image src="docs/kk-logo.svg" alt="kontent logo" width="200" style="vertical-align: middle;"/>
+<image src="docs/recombee-logo.png" alt="recombee logo" width="400" style="vertical-align: middle;" >
 </p>
 
 <p align="center">
@@ -27,14 +27,14 @@
   <a href="#additional-resources">Resources</a>
 </p>
 
-This repository contains an _example implementation_ of integration between [Recombee](https://www.recombee.com/) AI-powered content personalization and recommendation engine, and [Kentico Kontent](https://kontent.ai/) headless CMS. It comes with an optional [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/content-editing-extensions) for indexing your content in Recombee, as well as **two** [Netlify functions](https://docs.netlify.com/functions/overview/) for the **initial setup** and subsequent **processing of content changes** via a [webhook](https://docs.kontent.ai/tutorials/develop-apps/integrate/webhooks).
+This repository contains an _example implementation_ of integration between [Recombee](https://www.recombee.com/) AI-powered content personalization and recommendation engine, and [Kontent by Kentico](https://kontent.ai/) headless CMS. It comes with an optional [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/content-editing-extensions) for indexing your content in Recombee, as well as **two** [Netlify functions](https://docs.netlify.com/functions/overview/) for the **initial setup** and subsequent **processing of content changes** via a [webhook](https://docs.kontent.ai/tutorials/develop-apps/integrate/webhooks).
 
 
 ## Demo
 ![recombee-custom-element](docs/recombee-animation.gif)
 
 ## Prerequisities
-To run this integration, you'll need your Kentico Kontent project + a [Recombee account](https://account.recombee.com/users/sign_up). 
+To run this integration, you'll need a Kontent project + a [Recombee account](https://account.recombee.com/users/sign_up). 
 
 **[Contact Recombee](mailto:business@recombee.com) to recieve a special offer for Kontent customers!**
 
@@ -55,7 +55,7 @@ To run this integration, you'll need your Kentico Kontent project + a [Recombee 
   ![recombee-keys](docs/recombee-settings.png)
 
 3. ### Create a new Webhook in Kontent to Sync your data with Recombee
-    The next step is [creating a new webhook in Kentico Kontent](https://docs.kontent.ai/tutorials/develop-apps/integrate/webhooks#a-create-a-webhook). 
+    The next step is [creating a new webhook in Kontent](https://docs.kontent.ai/tutorials/develop-apps/integrate/webhooks#a-create-a-webhook). 
 
     Fill out the following into the webhook's **URL address** field:
 
@@ -169,7 +169,7 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 ## Additional Resources
 
 - [Custom Element Gallery on github](https://kentico.github.io/kontent-custom-element-samples/gallery/)
-- [Kentico Kontent's Integration documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrations-overview)
+- [Kontent's Integration documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrations-overview)
 
 
 [last-commit]: https://img.shields.io/github/last-commit/Kentico/kontent-example-integration-recombee?style=for-the-badge
