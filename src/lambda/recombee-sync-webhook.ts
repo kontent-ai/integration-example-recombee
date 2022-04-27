@@ -46,12 +46,13 @@ export async function handler(event: APIGatewayEvent, context: Context) {
   const webhook: IWebhookDeliveryResponse = JSON.parse(event.body);
 
   // we are getting notified about changes in content items
-  if (webhook.message.type == "content_item_variant") {
+  if (webhook.message.type == "content_item_variant" || webhook.message.type == "content_item") {
     const operation = webhook.message.operation;
 
     switch (operation) {  
       // publish webhook
       case "publish":
+      case "upsert":
         {
           try {
             for (const item of webhook.data.items) {
@@ -77,9 +78,11 @@ export async function handler(event: APIGatewayEvent, context: Context) {
               body: JSON.stringify({ message: 'Error : ' + err }),
             };
           }
+          break;
         }
       // unpublish webhook
       case "unpublish":
+      case "archive":
         {
           try {
             for (const item of webhook.data.items) {
@@ -99,13 +102,13 @@ export async function handler(event: APIGatewayEvent, context: Context) {
               body: JSON.stringify({ message: 'Error : ' + err }),
             };
           }
+          break;
         }
-
-      default:
-        return {
-          statusCode: 200,
-          body: `${JSON.stringify("success")}`
-        };
     }
   }
+
+  return {
+    statusCode: 200,
+    body: `${JSON.stringify("success")}`
+  };
 }
