@@ -1,7 +1,3 @@
-[![Review][review]](https://kontent.ai/integrations/recombee)
-
-> ⚠ This repository is under the review. Please be noted that any infromation and code might be a subject of change.
-
 [![Core integration][core-shield]](https://kontent.ai/integrations/recombee)
 [![Gallery][gallery-shield]](https://kentico.github.io/kontent-custom-element-samples/gallery/)
 
@@ -15,8 +11,8 @@
 [![GitHub Discussions][discussion-shield]](https://github.com/Kentico/Home/discussions)
 
 <p align="center">
-<image src="docs/01-kk-logo-main.svg" alt="kontent logo" width="250" style="vertical-align: middle;"/>
-<image src="docs/recombee-logo.png" alt="recombee logo" width="350" style="vertical-align: middle;" >
+<image src="docs/kk-logo.svg" alt="kontent logo" width="200" style="vertical-align: middle;"/>
+<image src="docs/recombee-logo.png" alt="recombee logo" width="400" style="vertical-align: middle;" >
 </p>
 
 <p align="center">
@@ -31,14 +27,14 @@
   <a href="#additional-resources">Resources</a>
 </p>
 
-This repository contains an _example implementation_ of integration between [Recombee](https://www.recombee.com/) AI-powered content personalization and recommendation engine, and [Kentico Kontent](https://kontent.ai/) headless CMS. It comes with an optional [custom element](https://docs.kontent.ai/tutorials/develop-apps/integrate/content-editing-extensions) for indexing your content in Recombee, as well as **two** [Netlify functions](https://docs.netlify.com/functions/overview/) for the **initial setup** and subsequent **processing of content changes** via a [webhook](https://docs.kontent.ai/tutorials/develop-apps/integrate/webhooks).
+This repository contains an _example implementation_ of integration between [Recombee](https://www.recombee.com/) AI-powered content personalization and recommendation engine, and [Kontent by Kentico](https://kontent.ai/) headless CMS. It comes with an optional [custom element](https://kontent.ai/learn/tutorials/develop-apps/integrate/content-editing-extensions) for indexing your content in Recombee, as well as **two** [Netlify functions](https://docs.netlify.com/functions/overview/) for the **initial setup** and subsequent **processing of content changes** via a [webhook](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks).
 
 
 ## Demo
 ![recombee-custom-element](docs/recombee-animation.gif)
 
 ## Prerequisities
-To run this integration, you'll need your Kentico Kontent project + a [Recombee account](https://account.recombee.com/users/sign_up). 
+To run this integration, you'll need a Kontent project + a [Recombee account](https://account.recombee.com/users/sign_up). 
 
 **[Contact Recombee](mailto:business@recombee.com) to recieve a special offer for Kontent customers!**
 
@@ -59,7 +55,7 @@ To run this integration, you'll need your Kentico Kontent project + a [Recombee 
   ![recombee-keys](docs/recombee-settings.png)
 
 3. ### Create a new Webhook in Kontent to Sync your data with Recombee
-    The next step is [creating a new webhook in Kentico Kontent](https://docs.kontent.ai/tutorials/develop-apps/integrate/webhooks#a-create-a-webhook). 
+    The next step is [creating a new webhook in Kontent](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-create-a-webhook). 
 
     Fill out the following into the webhook's **URL address** field:
 
@@ -84,7 +80,7 @@ To run this integration, you'll need your Kentico Kontent project + a [Recombee 
     Variable | Value |
     --- | --- |
     RECOMBEE_API_KEY |  your [Recombee private token](https://docs.recombee.com/authentication.html) | 
-    KONTENT_SECRET | your [Kontent webhook secret](https://docs.kontent.ai/tutorials/develop-apps/integrate/webhooks#a-validate-received-notifications)
+    KONTENT_SECRET | your [Kontent webhook secret](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-validate-received-notifications)
 
     The Recombee private key is used by the function to synchronize your recommendation database.
 
@@ -112,7 +108,7 @@ To run this integration, you'll need your Kentico Kontent project + a [Recombee 
 
     ### Alternatively use a **custom element** to manage your registered content types
 
-    Simply add a new [custom element]((https://docs.kontent.ai/tutorials/develop-apps/integrate/content-editing-extensions)) into your content model (it will be a good idea to create some kind of _meta_ content type to store some of the project's settings, including this element). 
+    Simply add a new [custom element]((https://kontent.ai/learn/tutorials/develop-apps/integrate/content-editing-extensions)) into your content model (it will be a good idea to create some kind of _meta_ content type to store some of the project's settings, including this element). 
 
     Use your netlify's URL for the base page as the **Hosted code URL** and a following settings to setup the custom element:
 
@@ -123,7 +119,7 @@ To run this integration, you'll need your Kentico Kontent project + a [Recombee 
     ```
     The custom element allows you to (re)register your content types into your Recombee database. It also saves codenames of types you have already registered through it. <a href="#demo">**Check out the demo gif above!**</a> All of your content model properties (including images) will be modeled and transfered into the recommendation database.
     
-    If you are working with content in [multiple language variants](https://docs.kontent.ai/tutorials/write-and-collaborate/create-multilingual-content/translate-content-items), adding additional variants to Recombee is just as easy as simply switching to the desired language variant and registering the content type through a custom element included in that variant (see gif below).
+    If you are working with content in [multiple language variants](https://kontent.ai/learn/tutorials/write-and-collaborate/create-multilingual-content/translate-content-items), adding additional variants to Recombee is just as easy as simply switching to the desired language variant and registering the content type through a custom element included in that variant (see gif below).
 
     ![recombee-multilingual](docs/recombee-multilang.gif)
 
@@ -173,7 +169,7 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 ## Additional Resources
 
 - [Custom Element Gallery on github](https://kentico.github.io/kontent-custom-element-samples/gallery/)
-- [Kentico Kontent's Integration documentation](https://docs.kontent.ai/tutorials/develop-apps/integrate/integrations-overview)
+- [Kontent's Integration documentation](https://kontent.ai/learn/tutorials/develop-apps/integrate/integrations-overview)
 
 
 [last-commit]: https://img.shields.io/github/last-commit/Kentico/kontent-example-integration-recombee?style=for-the-badge
