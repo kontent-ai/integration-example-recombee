@@ -21,6 +21,7 @@
   <a href="#get-started">Get started</a> •
   <a href="#recombee-data-structure">Recombee data structure</a> •
   <a href="#getting-recommendations">Getting recommendations</a> •
+  <a href="#deleting-archived-or-unpublished-items">Deleting items</a> •
   <a href="#developing">Developing</a> •
   <a href="#contributors">Contributors</a> •
   <a href="#license">License</a> •
@@ -139,6 +140,9 @@ There are also multiple ways to get recommendations for your website once you ar
 For more please refer to [Recombee documentation on getting recommendations](https://docs.recombee.com/gettingstarted.html#get-recommendations).
 
 ![recombee-data](docs/recombee-widget.png)
+
+## Deleting archived or unpublished items
+Sometimes a content item has to be archived, or unpublished. Once this item becomes unavailable, it should be also *removed* from the recommendation engine so your recommendations are always valid. This integration, by default, removes unpublished and archived items from your recombee database, however, by doing this it also removes all of the previous item interactions that are being used to construct your recommendation model. To avoid this, Recombee suggests creating a dedicated model property that will be used to determine if the item is valid or invalid. You'll then need to use this property to request only valid recommendations. Read more about this topic in [Recombee's documentation](https://docs.recombee.com/reql_filtering_and_boosting.html#handling-deleted-items).
 
 
 ## Developing
