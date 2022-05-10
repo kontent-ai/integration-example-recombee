@@ -45,67 +45,72 @@ export async function handler(event: APIGatewayEvent, context: Context) {
 
   const webhook: IWebhookDeliveryResponse = JSON.parse(event.body);
 
-  // we are getting notified about changes in content items
-  if (webhook.message.type == "content_item_variant") {
-    const operation = webhook.message.operation;
+  // we are getting notified about changes in content items on the production delivery API
+  if (webhook.message.api_name == "delivery_production") {
+    if(webhook.message.type == "content_item_variant" || webhook.message.type == "content_item") {
+      const operation = webhook.message.operation;
 
-    switch (operation) {  
-      // publish webhook
-      case "publish":
-        {
-          try {
-            for (const item of webhook.data.items) {
-            
-              // type not to be processed since it's not included in recommendations -> skip
-              if (!typesToWatch.includes(item.type)) continue;
-              if (!languagesToWatch.includes(item.language)) continue;
-            
-              // type that shall be processed
-              const kontentConfig: KontentConfiguration = { projectId: webhook.message.project_id, contentType: item.type };
-              const kontentClient = new KontentClient(kontentConfig);
+      switch (operation) {  
+        // publish webhook
+        case "publish":
+        case "upsert":
+          {
+            try {
+              for (const item of webhook.data.items) {
+              
+                // type not to be processed since it's not included in recommendations -> skip
+                if (!typesToWatch.includes(item.type)) continue;
+                if (!languagesToWatch.includes(item.language)) continue;
+              
+                // type that shall be processed
+                const kontentConfig: KontentConfiguration = { projectId: webhook.message.project_id, contentType: item.type };
+                const kontentClient = new KontentClient(kontentConfig);
 
-              const contentItem = await kontentClient.getContentForCodename(item.codename);
-              if (contentItem) {
-                const recombeeClient = new RecombeeClient(recombeeConfig);
-                await recombeeClient.importContent([contentItem]);
+                const contentItem = await kontentClient.getContentForCodename(item.codename);
+                if (contentItem) {
+                  const recombeeClient = new RecombeeClient(recombeeConfig);
+                  await recombeeClient.importContent([contentItem]);
+                }
               }
             }
-          }
-          catch (err) {
-            return {
-              statusCode: 520,
-              body: JSON.stringify({ message: 'Error : ' + err }),
-            };
-          }
-        }
-      // unpublish webhook
-      case "unpublish":
-        {
-          try {
-            for (const item of webhook.data.items) {
-
-              // type not to be processed since it's not included in recommendations -> skip
-              if (!typesToWatch.includes(item.type)) continue;
-              if (!languagesToWatch.includes(item.language)) continue;
-
-              // delete content from the database
-              const recombeeClient = new RecombeeClient(recombeeConfig);
-              await recombeeClient.deleteContent([`${item.id}_${item.language}`]);
+            catch (err) {
+              return {
+                statusCode: 520,
+                body: JSON.stringify({ message: 'Error : ' + err }),
+              };
             }
+            break;
           }
-          catch (err) {
-            return {
-              statusCode: 520,
-              body: JSON.stringify({ message: 'Error : ' + err }),
-            };
-          }
-        }
+        // unpublish webhook
+        case "unpublish":
+        case "archive":
+          {
+            try {
+              for (const item of webhook.data.items) {
 
-      default:
-        return {
-          statusCode: 200,
-          body: `${JSON.stringify("success")}`
-        };
+                // type not to be processed since it's not included in recommendations -> skip
+                if (!typesToWatch.includes(item.type)) continue;
+                if (!languagesToWatch.includes(item.language)) continue;
+
+                // delete content from the database
+                const recombeeClient = new RecombeeClient(recombeeConfig);
+                await recombeeClient.deleteContent([`${item.id}_${item.language}`]);
+              }
+            }
+            catch (err) {
+              return {
+                statusCode: 520,
+                body: JSON.stringify({ message: 'Error : ' + err }),
+              };
+            }
+            break;
+          }
+      }
     }
   }
+
+  return {
+    statusCode: 200,
+    body: `${JSON.stringify("success")}`
+  };
 }
