@@ -1,5 +1,4 @@
 [![Core integration][core-shield]](https://kontent.ai/integrations/recombee)
-[![Gallery][gallery-shield]](https://kentico.github.io/kontent-custom-element-samples/gallery/)
 
 ![Last modified][last-commit]
 [![Issues][issues-shield]][issues-url]
@@ -7,12 +6,15 @@
 [![Forks][forks-shield]][forks-url]
 [![MIT License][license-shield]][license-url]
 
-[![Stack Overflow][stack-shield]](https://stackoverflow.com/tags/kentico-kontent)
-[![GitHub Discussions][discussion-shield]](https://github.com/Kentico/Home/discussions)
+[![Stack Overflow][stack-shield]](https://stackoverflow.com/tags/kontent-ai)
+[![Discord][discord-shield]](https://discord.gg/SKCxwPtevJ)
 
 <p align="center">
-<image src="docs/kk-logo.svg" alt="kontent logo" width="200" style="vertical-align: middle;"/>
-<image src="docs/recombee-logo.png" alt="recombee logo" width="400" style="vertical-align: middle;" >
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/kai-logo-hor-neg-rgb.svg">
+  <img alt="Kontent.ai logo for dark/light scheme." src="docs/kai-logo-hor-pos-rgb.svg" width="300">
+</picture>
+<image src="docs/recombee-logo.png" alt="recombee logo" width="400" style="vertical-align: middle;">
 </p>
 
 <p align="center">
@@ -28,43 +30,43 @@
   <a href="#additional-resources">Resources</a>
 </p>
 
-This repository contains an _example implementation_ of integration between [Recombee](https://www.recombee.com/) AI-powered content personalization and recommendation engine, and [Kontent by Kentico](https://kontent.ai/) headless CMS. It comes with an optional [custom element](https://kontent.ai/learn/tutorials/develop-apps/integrate/content-editing-extensions) for indexing your content in Recombee, as well as **two** [Netlify functions](https://docs.netlify.com/functions/overview/) for the **initial setup** and subsequent **processing of content changes** via a [webhook](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks).
+This repository contains an _example implementation_ of integration between [Recombee](https://www.recombee.com/) AI-powered content personalization and recommendation engine, and [Kontent.ai](https://kontent.ai/) headless CMS. It comes with an optional [custom element](https://kontent.ai/learn/tutorials/develop-apps/integrate/content-editing-extensions) for indexing your content in Recombee, as well as **two** [Netlify functions](https://docs.netlify.com/functions/overview/) for the **initial setup** and subsequent **processing of content changes** via a [webhook](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks).
 
 
 ## Demo
 ![recombee-custom-element](docs/recombee-animation.gif)
 
 ## Prerequisities
-To run this integration, you'll need a Kontent project + a [Recombee account](https://account.recombee.com/users/sign_up). 
+To run this integration, you'll need a Kontent.ai project + a [Recombee account](https://account.recombee.com/users/sign_up). 
 
-**[Contact Recombee](mailto:business@recombee.com) to recieve a special offer for Kontent customers!**
+**[Contact Recombee](mailto:business@recombee.com) to recieve a special offer for Kontent.ai customers!**
 
 ## Get Started
 
 1. ### Quick Deploy
     Netlify has made this easy. If you click the deploy button below, it will guide you through the process of deploying it to Netlify and leave you with a copy of the repository in your account as well.
 
-    [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/Kentico/kontent-example-integration-recombee)
+    [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/kontent-ai/example-integration-recombee)
 
     After you deploy the project into Netlify, you'll find two functions there:
-    1. **recombee-init-function** is the function that imports or refreshes all content of selected content type from Kontent into Recombee.
-    2. **recombee-sync-webhook** is the function you want to call via a webhook from Kontent to notify the integration that there's been a change to your content and that Recombee database has to be potentialy updated.
+    1. **recombee-init-function** is the function that imports or refreshes all content of selected content type from Kontent.ai into Recombee.
+    2. **recombee-sync-webhook** is the function you want to call via a webhook from Kontent.ai to notify the integration that there's been a change to your content and that Recombee database has to be potentialy updated.
 
 2. ### Get your credentials from Recombee
    In order for the integration to work, you'll need a set of credentials for Recombee. In order to obtain those, just login into your Recombee account, select your database and you'll want to copy the **API Identifier** and **Private token** that can be found under the **Settings** section. These credentials will be neccessary for the following steps. 
 
   ![recombee-keys](docs/recombee-settings.png)
 
-3. ### Create a new Webhook in Kontent to Sync your data with Recombee
-    The next step is [creating a new webhook in Kontent](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-create-a-webhook). 
+3. ### Create a new Webhook in Kontent.ai to Sync your data with Recombee
+    The next step is [creating a new webhook in Kontent.ai](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-create-a-webhook). 
 
     Fill out the following into the webhook's **URL address** field:
 
-    `https://<YOUR_NETLIFY_APP>/.netlify/functions/recombee-sync-webhook?apiId=`(**Recombee API Identifier**)`&types=`(**kontent content types to be processed by the webhook**)`&languages=`(**kontent languages to be processed by the webhook**)
+    `https://<YOUR_NETLIFY_APP>/.netlify/functions/recombee-sync-webhook?apiId=`(**Recombee API Identifier**)`&types=`(**Kontent.ai content types to be processed by the webhook**)`&languages=`(**Kontent.ai languages to be processed by the webhook**)
 
-    You can include multiple kontent types and languages the webhook will be looking out for and synchronizing - to do so, just include them as a comma-separated list.
+    You can include multiple Kontent.ai types and languages the webhook will be looking out for and synchronizing - to do so, just include them as a comma-separated list.
 
-    Subsequently, set the Kontent's **Delivery API triggers** to watch for _Publish_ and _Unpublish_ of your content items. 
+    Subsequently, set the Kontent.ai **Delivery API triggers** to watch for _Publish_ and _Unpublish_ of your content items. 
 
     At the end, this is an example of how your webhook might look like:
 
@@ -76,16 +78,16 @@ To run this integration, you'll need a Kontent project + a [Recombee account](ht
 4. ### Configure your Netlify functions
 
     To **setup** both function, all you need to do is set the following **[environment variables](https://docs.netlify.com/configure-builds/environment-variables/)** for your Netlify site. 
-    You can find our tutorial on configuring Netlify functions [here](https://github.com/Kentico/kontent-netlify-webhook-processor#configuring-the-netlify-function).
+    You can find our tutorial on configuring Netlify functions [here](https://github.com/kontent-ai/netlify-webhook-processor#configuring-the-netlify-function).
 
     Variable | Value |
     --- | --- |
     RECOMBEE_API_KEY |  your [Recombee private token](https://docs.recombee.com/authentication.html) | 
-    KONTENT_SECRET | your [Kontent webhook secret](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-validate-received-notifications)
+    KONTENT_SECRET | your [Kontent.ai webhook secret](https://kontent.ai/learn/tutorials/develop-apps/integrate/webhooks#a-validate-received-notifications)
 
     The Recombee private key is used by the function to synchronize your recommendation database.
 
-    The Kontent webhook secret is used to ensure integrity of the webhook payload. It has been created in the previous step.
+    The Kontent.ai webhook secret is used to ensure integrity of the webhook payload. It has been created in the previous step.
 
     After your function has been **redeployed** (or your environment variables has been propagated), the functions are ready to be called. 
     
@@ -97,9 +99,9 @@ To run this integration, you'll need a Kontent project + a [Recombee account](ht
 
     ```
     {
-      "projectId":"{Kontent's project ID}",
-      "language":"{Kontent's language codename}",
-      "contentType":"{Kontent's content type codename}",
+      "projectId":"{Kontent.ai project ID}",
+      "language":"{Kontent.ai language codename}",
+      "contentType":"{Kontent.ai content type codename}",
       "recombeeApiId":"{Recombee's API Id}",
     }
     ```
@@ -127,9 +129,9 @@ To run this integration, you'll need a Kontent project + a [Recombee account](ht
     _Please note, that the element actually stores the types that have been registered in Recombee as its value, so if you use it in multiple places, it might not display the registered content types correctly._
 
 ## Recombee data structure
-In order to process data from Kontent and save them into Recombee, the functions map your elements from Kontent directly into Recombee under the same name. The linked items are saved as a set (array) of codenames. Every item will also have **codename**, **type**, **language**, **collection**, and **last_modified** properties on top of the specific elements. Knowing the structure of your data will allow you to use the full potential of [Recombee's filtering and boosting features](https://docs.recombee.com/reql.html). You can also sync multiple content types with one Recombee database. 
+In order to process data from Kontent.ai and save them into Recombee, the functions map your elements from Kontent.ai directly into Recombee under the same name. The linked items are saved as a set (array) of codenames. Every item will also have **codename**, **type**, **language**, **collection**, and **last_modified** properties on top of the specific elements. Knowing the structure of your data will allow you to use the full potential of [Recombee's filtering and boosting features](https://docs.recombee.com/reql.html). You can also sync multiple content types with one Recombee database. 
 
-If you need help with your use-case, feel free to contact us on our [Discord](https://bitly.com/kontent-discord), or reach out to [Recombee directly](mailto:business@recombee.com).   
+If you need help with your use-case, feel free to contact us on our [Discord](https://discord.gg/SKCxwPtevJ), or reach out to [Recombee directly](mailto:business@recombee.com).   
 
 ![recombee-data](docs/recombee-items.png)
 
@@ -162,8 +164,8 @@ $ netlify dev
 ## Contributors
 We have collected notes on how to contribute to this project in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-<a href="https://github.com/Kentico/kontent-example-integration-recombee/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Kentico/kontent-example-integration-recombee" />
+<a href="https://github.com/kontent-ai/example-integration-recombee/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kontent-ai/example-integration-recombee" />
 </a>
 
 ## License
@@ -172,24 +174,20 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 
 ## Additional Resources
 
-- [Custom Element Gallery on github](https://kentico.github.io/kontent-custom-element-samples/gallery/)
-- [Kontent's Integration documentation](https://kontent.ai/learn/tutorials/develop-apps/integrate/integrations-overview)
+- [Kontent.ai Integration documentation](https://kontent.ai/learn/tutorials/develop-apps/integrate/integrations-overview)
 
 
-[last-commit]: https://img.shields.io/github/last-commit/Kentico/kontent-example-integration-recombee?style=for-the-badge
-[review]: https://img.shields.io/static/v1?label=warning&message=under%20review&style=for-the-badge&color=orange
-[contributors-shield]: https://img.shields.io/github/contributors/Kentico/kontent-example-integration-recombee.svg?style=for-the-badge
-[contributors-url]: https://github.com/Kentico/kontent-example-integration-recombee/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Kentico/kontent-example-integration-recombee.svg?style=for-the-badge
-[forks-url]: https://github.com/Kentico/kontent-example-integration-recombee/network/members
-[stars-shield]: https://img.shields.io/github/stars/Kentico/kontent-example-integration-recombee.svg?style=for-the-badge
-[stars-url]: https://github.com/Kentico/kontent-example-integration-recombee/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Kentico/kontent-example-integration-recombee.svg?style=for-the-badge
-[issues-url]: https://github.com/Kentico/kontent-example-integration-recombee/issues
-[license-shield]: https://img.shields.io/github/license/Kentico/kontent-example-integration-recombee.svg?style=for-the-badge
-[license-url]: https://github.com/Kentico/kontent-example-integration-recombee/blob/master/LICENSE
+[last-commit]: https://img.shields.io/github/last-commit/kontent-ai/example-integration-recombee?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/kontent-ai/example-integration-recombee.svg?style=for-the-badge
+[contributors-url]: https://github.com/kontent-ai/example-integration-recombee/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/kontent-ai/example-integration-recombee.svg?style=for-the-badge
+[forks-url]: https://github.com/kontent-ai/example-integration-recombee/network/members
+[stars-shield]: https://img.shields.io/github/stars/kontent-ai/example-integration-recombee.svg?style=for-the-badge
+[stars-url]: https://github.com/kontent-ai/example-integration-recombee/stargazers
+[issues-shield]: https://img.shields.io/github/issues/kontent-ai/example-integration-recombee.svg?style=for-the-badge
+[issues-url]: https://github.com/kontent-ai/example-integration-recombee/issues
+[license-shield]: https://img.shields.io/github/license/kontent-ai/example-integration-recombee.svg?style=for-the-badge
+[license-url]: https://github.com/kontent-ai/example-integration-recombee/blob/main/LICENSE
 [core-shield]: https://img.shields.io/static/v1?label=&message=core%20integration&style=for-the-badge&color=FF5733
-[gallery-shield]: https://img.shields.io/static/v1?label=&message=extension%20gallery&style=for-the-badge&color=51bce0
 [stack-shield]: https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white&style=for-the-badge
-[discussion-shield]: https://img.shields.io/badge/GitHub-Discussions-FE7A16.svg?logo=github&style=for-the-badge
-[product-demo]: docs/demo.gif?raw=true
+[discord-shield]: https://img.shields.io/discord/821885171984891914?label=Discord&logo=Discord&logoColor=white&style=for-the-badge
