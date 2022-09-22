@@ -1,4 +1,4 @@
-import { ContentItem, ContentType, DeliveryClient } from '@kentico/kontent-delivery';
+import { IContentItem, IContentType, DeliveryClient } from '@kontent-ai/delivery-sdk';
 import { KontentConfiguration } from './configuration-model';
 
 export default class KontentClient {
@@ -10,24 +10,37 @@ export default class KontentClient {
     this.config = config;
   }
 
-  async getContentType() : Promise<ContentType> {
-    return (await this.client.type(this.config.contentType).toPromise()).type;
+  getContentType() : Promise<IContentType> {
+    return this.client.type(this.config.contentType)
+      .toPromise()
+      .then(r => r.data.type);
   }
 
-  async getAllContentItemsOfType(): Promise<ContentItem[]> {
-    if (!this.config.language) return [];
-    const feed = await this.client.itemsFeedAll().type(this.config.contentType).queryConfig({ waitForLoadingNewContent: true })
-      .languageParameter(this.config.language).equalsFilter("system.language", this.config.language).toPromise();
-    return feed.items;
+  getAllContentItemsOfType(): Promise<IContentItem[]> {
+    if (!this.config.language) {
+      return Promise.resolve([]);
+    }
+    return this.client
+      .itemsFeed()
+      .type(this.config.contentType)
+      .queryConfig({ waitForLoadingNewContent: true })
+      .languageParameter(this.config.language)
+      .equalsFilter("system.language", this.config.language)
+      .toPromise()
+      .then(r => r.data.items);
   }
 
-  async getContentForCodename(codename: string): Promise<ContentItem | null> {
-    if (!this.config.language) return null;
+  getContentForCodename(codename: string): Promise<IContentItem | null> {
+    if (!this.config.language) {
+      return Promise.resolve(null);
+    }
 
-    const item = await this.client.item(codename).queryConfig({ waitForLoadingNewContent: true })
-      .languageParameter(this.config.language).toPromise();
-    
-    return item.item;
+    return this.client
+      .item(codename)
+      .queryConfig({ waitForLoadingNewContent: true })
+      .languageParameter(this.config.language)
+      .toPromise()
+      .then(r => r.data.item);
   }
 }
 

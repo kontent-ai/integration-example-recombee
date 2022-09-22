@@ -1,17 +1,15 @@
-type KontentConfiguration = {
+export type KontentConfiguration = {
   projectId: string,
   language?: string,
   contentType: string
 }
 
-type RecombeeConfiguration = {
+export type RecombeeConfiguration = {
   database: string,
-  key?: string
+  key: string
 }
 
-type RecommendationProjectConfiguration = {
+export type RecommendationProjectConfiguration = {
   kontent: KontentConfiguration,
   recombee: RecombeeConfiguration
 }
-
-export { RecommendationProjectConfiguration, RecombeeConfiguration, KontentConfiguration }
