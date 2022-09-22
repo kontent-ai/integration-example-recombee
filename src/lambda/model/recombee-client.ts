@@ -1,18 +1,18 @@
-import { RecombeeConfiguration } from "./configuration-model"
-import { ContentItem, GenericElement } from "@kentico/kontent-delivery";
-import * as Recombee from "recombee-api-client"
+import { RecombeeConfiguration } from "./configuration-model";
+import { Elements, ElementType, IContentItem, IGenericElement } from "@kontent-ai/delivery-sdk";
+import * as Recombee from "recombee-api-client";
 
 export default class RecombeeClient {
   config: RecombeeConfiguration;
-  client: any;
+  client: Recombee.ApiClient;
 
-  private datatypeMap: Map<string, string>;
+  private datatypeMap: Map<string, Recombee.PropertyType>;
 
   constructor(config: RecombeeConfiguration) {
     this.config = config;
     this.client = new Recombee.ApiClient(config.database, config.key);
 
-    this.datatypeMap = new Map<string, string>([
+    this.datatypeMap = new Map([
       ["text", "string"],
       ["rich_text", "string"],
       ["number", "int"],
@@ -20,99 +20,92 @@ export default class RecombeeClient {
       ["asset", "imageList"],
       ["modular_content", "set"],
       ["taxonomy", "set"],
-      ["url_slug", "string"]]);
+      ["url_slug", "string"]
+    ]);
   }
 
   private cleanHtml(str: string) {
-     return str.replace(/&#([0-9]{1,3});/gi, function (match, numStr) {
-      var num = parseInt(numStr, 10); // read num as normal number
-      return String.fromCharCode(num);
-     }).replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ').replace(/\n/g, ' ');;
+    return str
+      .replace(/&#([0-9]{1,3});/gi, (match, numStr) => {
+        const num = parseInt(numStr, 10); // read num as normal number
+        return String.fromCharCode(num);
+      })
+      .replace(/<[^>]*>?/gm, "")
+      .replace(/&nbsp;/g, " ")
+      .replace(/\n/g, " ");
   }
 
-  private getContentValuesForRecommendations(item: ContentItem): any {
-    const result = new Map<string, any>([
+  private getContentValuesForRecommendations(item: IContentItem): Record<string, unknown> {
+    const itemFields = [
       ["codename", item.system.codename],
       ["language", item.system.language],
       ["last_modified", item.system.lastModified],
       ["type", item.system.type],
-      ["collection", item.system.collection]]);
-    
-    for (const elementCodename of Object.keys(item._raw.elements)) {
-      const element = item[elementCodename];
-      switch (element.type) {
-        case "rich_text":
-          result.set(elementCodename, this.cleanHtml(element.value));
-          break;
-        case "modular_content":
-          result.set(elementCodename, element.itemCodenames);
-          break;
-        case "taxonomy":
-          result.set(elementCodename, element.value.map((t: { codename: string; }) => t.codename));
-          break;
-        case "asset":
-          result.set(elementCodename, element.value.map((a: { url: string }) => a.url));
-          break;
-        case "custom":
-          break;
-        default:
-          result.set(elementCodename, element.value);
-          break;
-      }
-    }
+      ["collection", item.system.collection]
+    ] as const;
 
-    return Object.fromEntries(result);
+    const elementFields: [string, unknown][] = Object.entries(item.elements)
+      .map(([elementCodename, element]): [string, unknown] | null => {
+        switch (element.type) {
+          case ElementType.RichText:
+            return [elementCodename, this.cleanHtml(element.value)];
+          case ElementType.ModularContent:
+            return [elementCodename, (element as Elements.LinkedItemsElement).linkedItems.map(i => i.system.codename)];
+          case ElementType.Taxonomy:
+            return [elementCodename, (element as Elements.TaxonomyElement).value.map((t: { codename: string; }) => t.codename)];
+          case ElementType.Asset:
+            return [elementCodename, (element as Elements.AssetsElement).value.map((a: { url: string }) => a.url)];
+          case ElementType.Custom:
+            return null;
+          default:
+            return [elementCodename, element.value];
+        }
+      })
+      .filter(notNull);
+
+    return Object.fromEntries([...itemFields, ...elementFields]);
   }
 
-  async initStructure(elements: GenericElement[]): Promise<any> {
-    const properties: any[] =
-      [new Recombee.requests.AddItemProperty("codename", "string"),
+  initStructure(elements: IGenericElement[]): Promise<void> {
+    const requests = [
+      new Recombee.requests.AddItemProperty("codename", "string"),
       new Recombee.requests.AddItemProperty("language", "string"),
       new Recombee.requests.AddItemProperty("last_modified", "timestamp"),
       new Recombee.requests.AddItemProperty("collection", "string"),
-      new Recombee.requests.AddItemProperty("type", "string")];
+      new Recombee.requests.AddItemProperty("type", "string"),
+      ...elements
+        .map(element => {
+          const dataType = this.datatypeMap.get(element.type);
+          return dataType
+            ? new Recombee.requests.AddItemProperty(element.codename, dataType)
+            : null;
+        })
+        .filter(notNull)
+    ];
 
-    for (const element of elements) {
-      if (this.datatypeMap.has(element.type)) {
-        properties.push(new Recombee.requests.AddItemProperty(element.codename, this.datatypeMap.get(element.type)));
-      }
-    }
-
-    return new Promise((resolve, reject) => {
-      this.client.send(new Recombee.requests.Batch(properties), (err: any, res: any) => {
-        if (err) reject(Error(err));
-        resolve(res);
-      })
-    });
+    return this.client.send(new Recombee.requests.Batch(requests));
   }
 
-  async importContent(items: ContentItem[]): Promise<any> {
-    const data: any[] = [];
-    for (const item of items) {
-      const transformed = this.getContentValuesForRecommendations(item);
-      data.push(new Recombee.requests.SetItemValues(`${item.system.id}_${item.system.language}`, transformed, {cascadeCreate: true}));
+  importContent(items: IContentItem[]): Promise<void> {
+    const requests = items.map(item => new Recombee.requests.SetItemValues(
+      `${item.system.id}_${item.system.language}`,
+      this.getContentValuesForRecommendations(item),
+      { cascadeCreate: true }
+    ));
+
+    if (!requests.length) {
+      return Promise.resolve();
     }
 
-    return new Promise((resolve, reject) => {
-      this.client.send(new Recombee.requests.Batch(data), (err: any, res: any) => {
-        if (err) reject(Error(err));
-        resolve(res);
-      })
-    })
+
+    return this.client.send(new Recombee.requests.Batch(requests));
   }
 
-  async deleteContent(ids: string[]): Promise<any> {
-    const data: any[] = [];
-    for (const id of ids) {
-      data.push(new Recombee.requests.DeleteItem(id));
-    }
+  deleteContent(ids: string[]): Promise<void> {
+    const requests = ids.map(id => new Recombee.requests.DeleteItem(id));
 
-    return new Promise((resolve, reject) => {
-      this.client.send(new Recombee.requests.Batch(data), (err: any, res: any) => {
-        if (err) reject(Error(err));
-        resolve(res);
-      })
-    })
-
+    return this.client.send(new Recombee.requests.Batch(requests));
   }
 }
+
+const notNull = <T>(v: T | null): v is T => v !== null;
