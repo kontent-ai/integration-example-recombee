@@ -154,18 +154,17 @@ Sometimes a content item has to be archived, or unpublished. Once this item beco
 # Initial project setup
 $ npm install
 
-# Build the project
-$ npm run build
-
 # Run locally
 $ netlify dev
 ```
+
+The custom element is created with [Create React App](https://create-react-app.dev/).
 
 ## Contributors
 We have collected notes on how to contribute to this project in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 <a href="https://github.com/kontent-ai/example-integration-recombee/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=kontent-ai/example-integration-recombee" />
+  <img src="https://contrib.rocks/image?repo=kontent-ai/example-integration-recombee" alt="contributors" />
 </a>
 
 ## License
