@@ -1,20 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
+    "target": "es2015",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "strictPropertyInitialization": false
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Recommended",
   "include": [
-    "src/lambda/*.ts", "decs.d.ts"
-, "src/lambda/recombee-sync-webhook.ts"  ],
-  "typeRoots": [
-    "node_modules/@types", 
-    "lodash"
+    "src"
+  ],
+  "exclude": [
+    "src/functions"
   ]
 }
