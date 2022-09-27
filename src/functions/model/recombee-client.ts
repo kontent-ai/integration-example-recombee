@@ -1,6 +1,7 @@
 import { RecombeeConfiguration } from "./configuration-model";
 import { Elements, ElementType, IContentItem, IGenericElement } from "@kontent-ai/delivery-sdk";
 import * as Recombee from "recombee-api-client";
+import { notNull } from '../../typeguards';
 
 export default class RecombeeClient {
   config: RecombeeConfiguration;
@@ -107,5 +108,3 @@ export default class RecombeeClient {
     return this.client.send(new Recombee.requests.Batch(requests));
   }
 }
-
-const notNull = <T>(v: T | null): v is T => v !== null;

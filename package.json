@@ -6,15 +6,43 @@
     "@kontent-ai/delivery-sdk": "^12.1.0",
     "@kontent-ai/webhook-helper": "^2.0.1",
     "@netlify/functions": "^1.2.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.56",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
-    "recombee-api-client": "^4.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^16.7.1",
-    "typescript": "^4.8.3"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hotkeys-hook": "^3.4.7",
+    "react-scripts": "5.0.1",
+    "recombee-api-client": "^4.0.0",
+    "typescript": "^4.8.2"
   },
   "scripts": {
-    "build": "netlify-lambda build src/lambda",
-    "ts-check": "tsc --noEmit --lib ES2015"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
