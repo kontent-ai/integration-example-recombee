@@ -38,7 +38,7 @@ export const RecombeeTypesManager: FC = () => {
       }
       setConfig({
         projectId: context.projectId,
-        language: context.variant,
+        language: context.variant.codename,
         recombeeApiId: element.config.recombeeApiId,
       });
       setRegisteredTypesIds(JSON.parse(element.value ?? '[]'));

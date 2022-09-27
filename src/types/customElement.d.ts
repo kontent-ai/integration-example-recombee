@@ -6,7 +6,10 @@ type ElementInfo = Readonly<{
 
 type ElementContext = Readonly<{
   projectId: string;
-  variant: string;
+  variant: Readonly<{
+    id: Uuid;
+    codename: string;
+  }>;
 }>;
 
 declare const CustomElement: {
