@@ -21,7 +21,9 @@ export default class RecombeeClient {
       ["asset", "imageList"],
       ["modular_content", "set"],
       ["taxonomy", "set"],
-      ["url_slug", "string"]
+      ["url_slug", "string"],
+      ["multiple_choice", "set"],
+      ["custom", "string"]
     ]);
   }
 
@@ -56,8 +58,6 @@ export default class RecombeeClient {
             return [elementCodename, (element as Elements.TaxonomyElement).value.map((t: { codename: string; }) => t.codename)];
           case ElementType.Asset:
             return [elementCodename, (element as Elements.AssetsElement).value.map((a: { url: string }) => a.url)];
-          case ElementType.Custom:
-            return null;
           default:
             return [elementCodename, element.value];
         }
@@ -68,23 +68,22 @@ export default class RecombeeClient {
   }
 
   initStructure(elements: IGenericElement[]): Promise<void> {
-    const requests = [
-      new Recombee.requests.AddItemProperty("codename", "string"),
-      new Recombee.requests.AddItemProperty("language", "string"),
-      new Recombee.requests.AddItemProperty("last_modified", "timestamp"),
-      new Recombee.requests.AddItemProperty("collection", "string"),
-      new Recombee.requests.AddItemProperty("type", "string"),
-      ...elements
-        .map(element => {
-          const dataType = this.datatypeMap.get(element.type);
-          return dataType
-            ? new Recombee.requests.AddItemProperty(element.codename, dataType)
-            : null;
-        })
-        .filter(notNull)
-    ];
-
-    return this.client.send(new Recombee.requests.Batch(requests));
+      const requests = [
+        new Recombee.requests.AddItemProperty("codename", "string"),
+        new Recombee.requests.AddItemProperty("language", "string"),
+        new Recombee.requests.AddItemProperty("last_modified", "timestamp"),
+        new Recombee.requests.AddItemProperty("collection", "string"),
+        new Recombee.requests.AddItemProperty("type", "string"),
+        ...elements
+          .map(element => {
+            const dataType = this.datatypeMap.get(element.type);
+            return dataType
+              ? new Recombee.requests.AddItemProperty(element.codename, dataType)
+              : null;
+          })
+          .filter(notNull)
+      ];
+      return this.client.send(new Recombee.requests.Batch(requests));
   }
 
   importContent(items: IContentItem[]): Promise<void> {

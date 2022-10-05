@@ -60,6 +60,7 @@ export const handler: Handler = async (event) => {
             const kontentConfig: KontentConfiguration = {
               projectId: webhook.message.project_id,
               contentType: item.type,
+              language: item.language
             };
             const kontentClient = new KontentClient(kontentConfig);
 
