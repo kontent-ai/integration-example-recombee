@@ -46,7 +46,7 @@ To run this integration, you'll need a Kontent.ai project + a [Recombee account]
 1. ### Quick Deploy
     Netlify has made this easy. If you click the deploy button below, it will guide you through the process of deploying it to Netlify and leave you with a copy of the repository in your account as well.
 
-    [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/kontent-ai/example-integration-recombee)
+    [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/kontent-ai/integration-example-recombee)
 
     After you deploy the project into Netlify, you'll find two functions there:
     1. **recombee-init-function** is the function that imports or refreshes all content of selected content type from Kontent.ai into Recombee.
@@ -163,8 +163,8 @@ The custom element is created with [Create React App](https://create-react-app.d
 ## Contributors
 We have collected notes on how to contribute to this project in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-<a href="https://github.com/kontent-ai/example-integration-recombee/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=kontent-ai/example-integration-recombee" alt="contributors" />
+<a href="https://github.com/kontent-ai/integration-example-recombee/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kontent-ai/integration-example-recombee" alt="contributors" />
 </a>
 
 ## License
@@ -176,17 +176,17 @@ We have collected notes on how to contribute to this project in [CONTRIBUTING.md
 - [Kontent.ai Integration documentation](https://kontent.ai/learn/tutorials/develop-apps/integrate/integrations-overview)
 
 
-[last-commit]: https://img.shields.io/github/last-commit/kontent-ai/example-integration-recombee?style=for-the-badge
-[contributors-shield]: https://img.shields.io/github/contributors/kontent-ai/example-integration-recombee.svg?style=for-the-badge
-[contributors-url]: https://github.com/kontent-ai/example-integration-recombee/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/kontent-ai/example-integration-recombee.svg?style=for-the-badge
-[forks-url]: https://github.com/kontent-ai/example-integration-recombee/network/members
-[stars-shield]: https://img.shields.io/github/stars/kontent-ai/example-integration-recombee.svg?style=for-the-badge
-[stars-url]: https://github.com/kontent-ai/example-integration-recombee/stargazers
-[issues-shield]: https://img.shields.io/github/issues/kontent-ai/example-integration-recombee.svg?style=for-the-badge
-[issues-url]: https://github.com/kontent-ai/example-integration-recombee/issues
-[license-shield]: https://img.shields.io/github/license/kontent-ai/example-integration-recombee.svg?style=for-the-badge
-[license-url]: https://github.com/kontent-ai/example-integration-recombee/blob/main/LICENSE
+[last-commit]: https://img.shields.io/github/last-commit/kontent-ai/integration-example-recombee?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/kontent-ai/integration-example-recombee.svg?style=for-the-badge
+[contributors-url]: https://github.com/kontent-ai/integration-example-recombee/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/kontent-ai/integration-example-recombee.svg?style=for-the-badge
+[forks-url]: https://github.com/kontent-ai/integration-example-recombee/network/members
+[stars-shield]: https://img.shields.io/github/stars/kontent-ai/integration-example-recombee.svg?style=for-the-badge
+[stars-url]: https://github.com/kontent-ai/integration-example-recombee/stargazers
+[issues-shield]: https://img.shields.io/github/issues/kontent-ai/integration-example-recombee.svg?style=for-the-badge
+[issues-url]: https://github.com/kontent-ai/integration-example-recombee/issues
+[license-shield]: https://img.shields.io/github/license/kontent-ai/integration-example-recombee.svg?style=for-the-badge
+[license-url]: https://github.com/kontent-ai/integration-example-recombee/blob/main/LICENSE
 [core-shield]: https://img.shields.io/static/v1?label=&message=core%20integration&style=for-the-badge&color=FF5733
 [stack-shield]: https://img.shields.io/badge/Stack%20Overflow-ASK%20NOW-FE7A16.svg?logo=stackoverflow&logoColor=white&style=for-the-badge
 [discord-shield]: https://img.shields.io/discord/821885171984891914?label=Discord&logo=Discord&logoColor=white&style=for-the-badge
