@@ -1,5 +1,5 @@
 {
-  "name": "example-integration-recombee",
+  "name": "@kontent-ai/integration-example-recombee",
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
