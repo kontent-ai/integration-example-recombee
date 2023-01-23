@@ -1,12 +1,16 @@
 import { IContentItem, IContentType, DeliveryClient } from '@kontent-ai/delivery-sdk';
 import { KontentConfiguration } from './configuration-model';
+import packageJson from '../../../package.json';
 
 export default class KontentClient {
   client: DeliveryClient
   config: KontentConfiguration
 
   constructor(config: KontentConfiguration) {
-    this.client = new DeliveryClient({ projectId: config.projectId });
+    this.client = new DeliveryClient({
+      projectId: config.projectId,
+      globalHeaders: () => [{ header: 'X-KC-SOURCE', value: `${packageJson.name};${packageJson.version}`}],
+    });
     this.config = config;
   }
 
