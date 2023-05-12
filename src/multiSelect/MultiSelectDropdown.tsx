@@ -12,29 +12,32 @@ type Props<Option> = Readonly<{
 }>;
 
 export const MultiSelectDropdown = <Option extends unknown>(props: Props<Option>) => (
-    <div className="multi-select__dropdown">
-      <div className="multi-select__dropdown-options">
-        {props.options.map(o => (
-          <div
-            key={props.getOptionId(o)}
-            id={props.getOptionId(o)}
-            onClick={() => props.onClick(o)}
-            onMouseEnter={() => props.onMouseEnter(o)}
-            className={`
+  <div className="multi-select__dropdown">
+    <div className="multi-select__dropdown-options">
+      {props.options.map(o => (
+        <div
+          key={props.getOptionId(o)}
+          id={props.getOptionId(o)}
+          onClick={() => props.onClick(o)}
+          onMouseEnter={() => props.onMouseEnter(o)}
+          className={`
                       multi-select__dropdown-option 
                       ${props.getOptionId(o) === props.focusedOptionId ? 'multi-select__dropdown-option--is-highlighted' : ''} 
                       ${props.selectedOptions.find(s => props.getOptionId(s) === props.getOptionId(o)) ? 'multi-select__dropdown-option--is-selected' : ''}
                       `}
+        >
+          <div
+            className="multi-select__dropdown-option-name"
+            title={props.getOptionName(o)}
           >
-            <div className="multi-select__dropdown-option-name" title={props.getOptionName(o)}>
-              <PhraseHighlighter phrase={props.searchPhrase}>
-                {props.getOptionName(o)}
-              </PhraseHighlighter>
-            </div>
+            <PhraseHighlighter phrase={props.searchPhrase}>
+              {props.getOptionName(o)}
+            </PhraseHighlighter>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
-  );
+  </div>
+);
 
 MultiSelectDropdown.displayName = 'MultiSelectDropdown';

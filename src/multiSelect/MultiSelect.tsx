@@ -1,6 +1,13 @@
-import { MultiSelectInput } from './MultiSelectInput';
+import {
+  ReactNode,
+  useCallback,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
+
 import { MultiSelectDropdown } from './MultiSelectDropdown';
-import { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import { MultiSelectInput } from './MultiSelectInput';
 
 type Props<Option> = Readonly<{
   isDisabled: boolean;
@@ -67,7 +74,7 @@ export const MultiSelect = <Option extends unknown>(props: Props<Option>) => {
           <MultiSelectInput
             ref={inputRef}
             value={searchValue}
-            areShortcutsEnabled={isFocused && !props.isDisabled}
+            areShortcutsEnabled={!!isFocused && !props.isDisabled}
             isDisabled={props.isDisabled}
             onChange={setSearchValue}
             onFocus={() => setIsFocused(true)}
@@ -84,10 +91,10 @@ export const MultiSelect = <Option extends unknown>(props: Props<Option>) => {
           <i className={`multi-select__drop-down-expand-icon icon-chevron-${isDropdownVisible ? 'up' : 'down'}`} />
         </div>
       </div>
-      {isDropdownVisible && (
+      {!!isDropdownVisible && (
         <div
           style={{ position: 'absolute', top: '105%', left: 0 }}
-          onMouseDown={e => e.preventDefault()} // Prevent blurring the input
+          onMouseDown={e => e.preventDefault()}
         >
           <MultiSelectDropdown
             options={searchResult}
