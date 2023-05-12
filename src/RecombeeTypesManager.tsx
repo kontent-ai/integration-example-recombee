@@ -1,9 +1,10 @@
-import { FC, useEffect, useState } from 'react';
-import { RegisteredTypes } from './RegisteredTypes';
 import { DeliveryClient, IContentType } from '@kontent-ai/delivery-sdk';
+import { FC, useEffect, useState } from 'react';
+
+import { PoweredByLogo } from './PoweredByLogo';
+import { RegisteredTypes } from './RegisteredTypes';
 import { RegisterTypeSection } from './RegisterTypeSection';
 import { notNull } from './typeguards';
-import { PoweredByLogo } from './PoweredByLogo';
 
 const functionUrl = '/.netlify/functions/recombee-init-function';
 

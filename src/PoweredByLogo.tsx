@@ -1,5 +1,6 @@
-import recombeeLogo from './images/recombee-logo.png'
 import { FC } from "react";
+
+import recombeeLogo from './images/recombee-logo.png'
 
 export const PoweredByLogo: FC = () => (
   <div style={{ float: 'right', padding: 10 }}>

@@ -1,8 +1,9 @@
 import { IContentType } from '@kontent-ai/delivery-sdk';
 import { FC, useCallback, useState } from 'react';
-import { TypeBadge } from './TypeBadge';
+
 import { Modal } from './Modal';
 import { MultiSelect } from './multiSelect/MultiSelect';
+import { TypeBadge } from './TypeBadge';
 
 type Props = Readonly<{
   allTypes: ReadonlyArray<IContentType>;
@@ -71,7 +72,10 @@ export const RegisterTypeSection: FC<Props> = props => {
         </p>
         <footer className="modal-footer">
           <div className="btn-wrapper">
-            <button className="btn btn--secondary" onClick={closeConfirmation}>
+            <button
+              className="btn btn--secondary"
+              onClick={closeConfirmation}
+            >
               Cancel
             </button>
           </div>
