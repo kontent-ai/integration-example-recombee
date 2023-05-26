@@ -6,17 +6,6 @@ declare module 'recombee-api-client' {
     send(request: InstanceType<(typeof requests)[keyof typeof requests]>, callback: (error: unknown, result: unknown) => void): void;
   }
 
-  const singleRequests = {
-    DeleteItem,
-    AddItemProperty,
-    SetItemValues,
-  };
-
-  export const requests = {
-    ...singleRequests,
-    Batch,
-  };
-
   declare class DeleteItem {
     constructor(id: string);
   }
@@ -45,4 +34,15 @@ declare module 'recombee-api-client' {
   declare class Batch {
     constructor(requests: ReadonlyArray<InstanceType<(typeof singleRequests)[keyof typeof singleRequests]>>, options?: Readonly<{ distinctRecomms?: boolean }>);
   }
+
+  const singleRequests = {
+    DeleteItem,
+    AddItemProperty,
+    SetItemValues,
+  };
+
+  export const requests = {
+    ...singleRequests,
+    Batch,
+  };
 }

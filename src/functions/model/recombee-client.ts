@@ -1,7 +1,8 @@
-import { RecombeeConfiguration } from "./configuration-model";
 import { Elements, ElementType, IContentItem, IGenericElement } from "@kontent-ai/delivery-sdk";
 import * as Recombee from "recombee-api-client";
+
 import { notNull } from '../../typeguards';
+import { RecombeeConfiguration } from "./configuration-model";
 
 export default class RecombeeClient {
   config: RecombeeConfiguration;
