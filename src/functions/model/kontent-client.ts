@@ -1,6 +1,7 @@
-import { IContentItem, IContentType, DeliveryClient } from '@kontent-ai/delivery-sdk';
-import { KontentConfiguration } from './configuration-model';
+import { DeliveryClient,IContentItem, IContentType } from '@kontent-ai/delivery-sdk';
+
 import packageJson from '../../../package.json';
+import { KontentConfiguration } from './configuration-model';
 
 export default class KontentClient {
   client: DeliveryClient

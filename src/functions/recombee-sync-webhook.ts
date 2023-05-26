@@ -1,9 +1,9 @@
 import { IWebhookDeliveryResponse, SignatureHelper } from '@kontent-ai/webhook-helper';
-
-import RecombeeClient from './model/recombee-client';
-import KontentClient from './model/kontent-client';
-import { KontentConfiguration, RecombeeConfiguration } from './model/configuration-model';
 import { Handler } from '@netlify/functions';
+
+import { KontentConfiguration, RecombeeConfiguration } from './model/configuration-model';
+import KontentClient from './model/kontent-client';
+import RecombeeClient from './model/recombee-client';
 
 const { RECOMBEE_API_KEY, KONTENT_SECRET } = process.env;
 
