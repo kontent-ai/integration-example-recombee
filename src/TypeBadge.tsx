@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC } from "react";
 
 type Props = Readonly<{
   name: string;
@@ -7,7 +7,11 @@ type Props = Readonly<{
 }>;
 
 export const TypeBadge: FC<Props> = props => (
-  <div className={`multi-select__option multi-select__option--green ${props.isDisabled ? 'multi-select__option--is-disabled' : ''}`}>
+  <div
+    className={`multi-select__option multi-select__option--green ${
+      props.isDisabled ? "multi-select__option--is-disabled" : ""
+    }`}
+  >
     <div className="multi-select__option-name">
       {props.name}
     </div>
@@ -22,4 +26,4 @@ export const TypeBadge: FC<Props> = props => (
   </div>
 );
 
-TypeBadge.displayName = 'TypeBadge';
+TypeBadge.displayName = "TypeBadge";

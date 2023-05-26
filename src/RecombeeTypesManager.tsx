@@ -1,12 +1,12 @@
-import { DeliveryClient, IContentType } from '@kontent-ai/delivery-sdk';
-import { FC, useEffect, useState } from 'react';
+import { DeliveryClient, IContentType } from "@kontent-ai/delivery-sdk";
+import { FC, useEffect, useState } from "react";
 
-import { PoweredByLogo } from './PoweredByLogo';
-import { RegisteredTypes } from './RegisteredTypes';
-import { RegisterTypeSection } from './RegisterTypeSection';
-import { notNull } from './typeguards';
+import { PoweredByLogo } from "./PoweredByLogo";
+import { RegisteredTypes } from "./RegisteredTypes";
+import { RegisterTypeSection } from "./RegisterTypeSection";
+import { notNull } from "./typeguards";
 
-const functionUrl = '/.netlify/functions/recombee-init-function';
+const functionUrl = "/.netlify/functions/recombee-init-function";
 
 export const RecombeeTypesManager: FC = () => {
   const [registeredTypesIds, setRegisteredTypesIds] = useState<ReadonlyArray<string> | null>(null);
@@ -21,20 +21,20 @@ export const RecombeeTypesManager: FC = () => {
     const newRegisteredTypeIds = [...registeredTypesIds ?? [], ...typesToRegisterWithoutDuplicates];
 
     const createBody = (t: IContentType) => JSON.stringify({ ...config, contentType: t.system.codename });
-    Promise.all(typesToRegister.map(t => fetch(functionUrl, { method: 'POST', body: createBody(t) })))
+    Promise.all(typesToRegister.map(t => fetch(functionUrl, { method: "POST", body: createBody(t) })))
       .then(() => {
         setRegisteredTypesIds(newRegisteredTypeIds);
         CustomElement.setValue(JSON.stringify(newRegisteredTypeIds));
       })
       .catch(e => {
-        console.error('Failed to synchronize types: ', e);
+        console.error("Failed to synchronize types: ", e);
       });
   };
 
   useEffect(() => {
     CustomElement.init((element, context) => {
-      if (typeof element.config?.recombeeApiId !== 'string') {
-        console.error('Missing or incorrect "recombeeApiId" in the custom element config.');
+      if (typeof element.config?.recombeeApiId !== "string") {
+        console.error("Missing or incorrect \"recombeeApiId\" in the custom element config.");
         return;
       }
       setConfig({
@@ -42,7 +42,7 @@ export const RecombeeTypesManager: FC = () => {
         language: context.variant.codename,
         recombeeApiId: element.config.recombeeApiId,
       });
-      setRegisteredTypesIds(JSON.parse(element.value ?? '[]'));
+      setRegisteredTypesIds(JSON.parse(element.value ?? "[]"));
 
       new DeliveryClient({ projectId: context.projectId })
         .types()
@@ -80,7 +80,7 @@ export const RecombeeTypesManager: FC = () => {
   );
 };
 
-RecombeeTypesManager.displayName = 'RecombeeTypesManager';
+RecombeeTypesManager.displayName = "RecombeeTypesManager";
 
 type RecombeeConfig = Readonly<{
   projectId: string;

@@ -1,9 +1,12 @@
-declare module 'recombee-api-client' {
+declare module "recombee-api-client" {
   export declare class ApiClient {
     constructor(databaseId: string, databaseSecretToken: string);
 
     send(request: InstanceType<(typeof requests)[keyof typeof requests]>): Promise<void>;
-    send(request: InstanceType<(typeof requests)[keyof typeof requests]>, callback: (error: unknown, result: unknown) => void): void;
+    send(
+      request: InstanceType<(typeof requests)[keyof typeof requests]>,
+      callback: (error: unknown, result: unknown) => void,
+    ): void;
   }
 
   declare class DeleteItem {
@@ -28,11 +31,18 @@ declare module 'recombee-api-client' {
   }
 
   declare class SetItemValues {
-    constructor(itemId: string, itemValues: Readonly<Record<string, unknown>>, options?: Readonly<{ cascadeCreate?: boolean }>);
+    constructor(
+      itemId: string,
+      itemValues: Readonly<Record<string, unknown>>,
+      options?: Readonly<{ cascadeCreate?: boolean }>,
+    );
   }
 
   declare class Batch {
-    constructor(requests: ReadonlyArray<InstanceType<(typeof singleRequests)[keyof typeof singleRequests]>>, options?: Readonly<{ distinctRecomms?: boolean }>);
+    constructor(
+      requests: ReadonlyArray<InstanceType<(typeof singleRequests)[keyof typeof singleRequests]>>,
+      options?: Readonly<{ distinctRecomms?: boolean }>,
+    );
   }
 
   const singleRequests = {

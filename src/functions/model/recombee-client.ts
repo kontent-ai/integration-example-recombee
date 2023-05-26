@@ -1,7 +1,7 @@
 import { Elements, ElementType, IContentItem, IGenericElement } from "@kontent-ai/delivery-sdk";
 import * as Recombee from "recombee-api-client";
 
-import { notNull } from '../../typeguards';
+import { notNull } from "../../typeguards";
 import { RecombeeConfiguration } from "./configuration-model";
 
 export default class RecombeeClient {
@@ -24,7 +24,7 @@ export default class RecombeeClient {
       ["taxonomy", "set"],
       ["url_slug", "string"],
       ["multiple_choice", "set"],
-      ["custom", "string"]
+      ["custom", "string"],
     ]);
   }
 
@@ -45,7 +45,7 @@ export default class RecombeeClient {
       ["language", item.system.language],
       ["last_modified", item.system.lastModified],
       ["type", item.system.type],
-      ["collection", item.system.collection]
+      ["collection", item.system.collection],
     ] as const;
 
     const elementFields: [string, unknown][] = Object.entries(item.elements)
@@ -56,7 +56,10 @@ export default class RecombeeClient {
           case ElementType.ModularContent:
             return [elementCodename, (element as Elements.LinkedItemsElement).linkedItems.map(i => i.system.codename)];
           case ElementType.Taxonomy:
-            return [elementCodename, (element as Elements.TaxonomyElement).value.map((t: { codename: string; }) => t.codename)];
+            return [
+              elementCodename,
+              (element as Elements.TaxonomyElement).value.map((t: { codename: string }) => t.codename),
+            ];
           case ElementType.Asset:
             return [elementCodename, (element as Elements.AssetsElement).value.map((a: { url: string }) => a.url)];
           default:
@@ -69,35 +72,36 @@ export default class RecombeeClient {
   }
 
   initStructure(elements: IGenericElement[]): Promise<void> {
-      const requests = [
-        new Recombee.requests.AddItemProperty("codename", "string"),
-        new Recombee.requests.AddItemProperty("language", "string"),
-        new Recombee.requests.AddItemProperty("last_modified", "timestamp"),
-        new Recombee.requests.AddItemProperty("collection", "string"),
-        new Recombee.requests.AddItemProperty("type", "string"),
-        ...elements
-          .map(element => {
-            const dataType = this.datatypeMap.get(element.type);
-            return dataType
-              ? new Recombee.requests.AddItemProperty(element.codename, dataType)
-              : null;
-          })
-          .filter(notNull)
-      ];
-      return this.client.send(new Recombee.requests.Batch(requests));
+    const requests = [
+      new Recombee.requests.AddItemProperty("codename", "string"),
+      new Recombee.requests.AddItemProperty("language", "string"),
+      new Recombee.requests.AddItemProperty("last_modified", "timestamp"),
+      new Recombee.requests.AddItemProperty("collection", "string"),
+      new Recombee.requests.AddItemProperty("type", "string"),
+      ...elements
+        .map(element => {
+          const dataType = this.datatypeMap.get(element.type);
+          return dataType
+            ? new Recombee.requests.AddItemProperty(element.codename, dataType)
+            : null;
+        })
+        .filter(notNull),
+    ];
+    return this.client.send(new Recombee.requests.Batch(requests));
   }
 
   importContent(items: IContentItem[]): Promise<void> {
-    const requests = items.map(item => new Recombee.requests.SetItemValues(
-      `${item.system.id}_${item.system.language}`,
-      this.getContentValuesForRecommendations(item),
-      { cascadeCreate: true }
-    ));
+    const requests = items.map(item =>
+      new Recombee.requests.SetItemValues(
+        `${item.system.id}_${item.system.language}`,
+        this.getContentValuesForRecommendations(item),
+        { cascadeCreate: true },
+      )
+    );
 
     if (!requests.length) {
       return Promise.resolve();
     }
-
 
     return this.client.send(new Recombee.requests.Batch(requests));
   }

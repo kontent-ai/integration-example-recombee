@@ -1,16 +1,16 @@
-import { DeliveryClient,IContentItem, IContentType } from '@kontent-ai/delivery-sdk';
+import { DeliveryClient, IContentItem, IContentType } from "@kontent-ai/delivery-sdk";
 
-import packageJson from '../../../package.json';
-import { KontentConfiguration } from './configuration-model';
+import packageJson from "../../../package.json";
+import { KontentConfiguration } from "./configuration-model";
 
 export default class KontentClient {
-  client: DeliveryClient
-  config: KontentConfiguration
+  client: DeliveryClient;
+  config: KontentConfiguration;
 
   constructor(config: KontentConfiguration) {
     this.client = new DeliveryClient({
       projectId: config.projectId,
-      globalHeaders: () => [{ header: 'X-KC-SOURCE', value: `${packageJson.name};${packageJson.version}`}],
+      globalHeaders: () => [{ header: "X-KC-SOURCE", value: `${packageJson.name};${packageJson.version}` }],
     });
     this.config = config;
   }
@@ -46,8 +46,7 @@ export default class KontentClient {
       .languageParameter(this.config.language)
       .toPromise()
       .then(r => {
-        return r.data.item
+        return r.data.item;
       });
   }
 }
-

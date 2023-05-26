@@ -1,5 +1,5 @@
-import { forwardRef } from 'react';
-import { Options, useHotkeys } from 'react-hotkeys-hook';
+import { forwardRef } from "react";
+import { Options, useHotkeys } from "react-hotkeys-hook";
 
 type Props = Readonly<{
   value: string;
@@ -15,16 +15,26 @@ type Props = Readonly<{
 }>;
 
 const createHotkeysOptions = (enabled: boolean): Options => ({
-  enableOnTags: ['INPUT'],
+  enableOnTags: ["INPUT"],
   enabled,
 });
 
 export const MultiSelectInput = forwardRef<HTMLInputElement, Props>((props, forwardedRef) => {
-  useHotkeys('enter', preventDefaultAnd(props.onSubmit), createHotkeysOptions(props.areShortcutsEnabled), [props.onSubmit]);
-  useHotkeys('up', preventDefaultAnd(props.onMoveUp), createHotkeysOptions(props.areShortcutsEnabled), [props.onMoveUp]);
-  useHotkeys('down', preventDefaultAnd(props.onMoveDown), createHotkeysOptions(props.areShortcutsEnabled), [props.onMoveDown]);
-  useHotkeys('backspace', e => !props.value && preventDefaultAnd(props.onRemoveLast)(e), createHotkeysOptions(props.areShortcutsEnabled), [props.onRemoveLast, props.value]);
-
+  useHotkeys("enter", preventDefaultAnd(props.onSubmit), createHotkeysOptions(props.areShortcutsEnabled), [
+    props.onSubmit,
+  ]);
+  useHotkeys("up", preventDefaultAnd(props.onMoveUp), createHotkeysOptions(props.areShortcutsEnabled), [
+    props.onMoveUp,
+  ]);
+  useHotkeys("down", preventDefaultAnd(props.onMoveDown), createHotkeysOptions(props.areShortcutsEnabled), [
+    props.onMoveDown,
+  ]);
+  useHotkeys(
+    "backspace",
+    e => !props.value && preventDefaultAnd(props.onRemoveLast)(e),
+    createHotkeysOptions(props.areShortcutsEnabled),
+    [props.onRemoveLast, props.value],
+  );
 
   return (
     <input
@@ -40,7 +50,7 @@ export const MultiSelectInput = forwardRef<HTMLInputElement, Props>((props, forw
   );
 });
 
-MultiSelectInput.displayName = 'MultiSelectInput';
+MultiSelectInput.displayName = "MultiSelectInput";
 
 const preventDefaultAnd = (fnc: () => void) => (e: KeyboardEvent) => {
   e.preventDefault();

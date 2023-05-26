@@ -1,4 +1,4 @@
-import { PhraseHighlighter } from './PhraseHighlighter';
+import { PhraseHighlighter } from "./PhraseHighlighter";
 
 type Props<Option> = Readonly<{
   options: ReadonlyArray<Option>;
@@ -21,10 +21,14 @@ export const MultiSelectDropdown = <Option extends unknown>(props: Props<Option>
           onClick={() => props.onClick(o)}
           onMouseEnter={() => props.onMouseEnter(o)}
           className={`
-                      multi-select__dropdown-option 
-                      ${props.getOptionId(o) === props.focusedOptionId ? 'multi-select__dropdown-option--is-highlighted' : ''} 
-                      ${props.selectedOptions.find(s => props.getOptionId(s) === props.getOptionId(o)) ? 'multi-select__dropdown-option--is-selected' : ''}
-                      `}
+          multi-select__dropdown-option 
+          ${props.getOptionId(o) === props.focusedOptionId ? "multi-select__dropdown-option--is-highlighted" : ""} 
+          ${
+            props.selectedOptions.find(s => props.getOptionId(s) === props.getOptionId(o))
+              ? "multi-select__dropdown-option--is-selected"
+              : ""
+          }
+          `}
         >
           <div
             className="multi-select__dropdown-option-name"
@@ -40,4 +44,4 @@ export const MultiSelectDropdown = <Option extends unknown>(props: Props<Option>
   </div>
 );
 
-MultiSelectDropdown.displayName = 'MultiSelectDropdown';
+MultiSelectDropdown.displayName = "MultiSelectDropdown";
