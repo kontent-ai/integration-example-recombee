@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect, useRef } from 'react';
+import { FC, ReactNode, useEffect, useRef } from "react";
 
 type Props = Readonly<{
   children: ReactNode;
@@ -39,4 +39,4 @@ export const Modal: FC<Props> = props => {
   );
 };
 
-Modal.displayName = 'Modal';
+Modal.displayName = "Modal";

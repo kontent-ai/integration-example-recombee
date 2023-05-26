@@ -1,15 +1,15 @@
-import { IContentType } from '@kontent-ai/delivery-sdk';
-import { FC, useCallback, useState } from 'react';
+import { IContentType } from "@kontent-ai/delivery-sdk";
+import { FC, useCallback, useState } from "react";
 
-import { Modal } from './Modal';
-import { MultiSelect } from './multiSelect/MultiSelect';
-import { TypeBadge } from './TypeBadge';
+import { Modal } from "./Modal";
+import { MultiSelect } from "./multiSelect/MultiSelect";
+import { TypeBadge } from "./TypeBadge";
 
 type Props = Readonly<{
   allTypes: ReadonlyArray<IContentType>;
   onRegisterTypes: (types: ReadonlyArray<IContentType>) => void;
   isDisabled: boolean;
-}>
+}>;
 
 export const RegisterTypeSection: FC<Props> = props => {
   const [selectedTypes, setSelectedTypes] = useState<ReadonlyArray<IContentType>>([]);
@@ -26,16 +26,17 @@ export const RegisterTypeSection: FC<Props> = props => {
     submitSelectedTypes();
   };
 
-  const toggleTypeSelection = useCallback((toToggle: IContentType) => setSelectedTypes(prevSelected => {
-    if (prevSelected.includes(toToggle)) {
-      return prevSelected.filter(t => t !== toToggle);
-    }
-    return [...prevSelected, toToggle];
-  }), []);
+  const toggleTypeSelection = useCallback((toToggle: IContentType) =>
+    setSelectedTypes(prevSelected => {
+      if (prevSelected.includes(toToggle)) {
+        return prevSelected.filter(t => t !== toToggle);
+      }
+      return [...prevSelected, toToggle];
+    }), []);
 
   return (
     <div style={{ paddingTop: 10, paddingRight: 30 }}>
-      <b>Add new types/refresh existing: </b>
+      <b>Add new types/refresh existing:</b>
       <div className="register-types-input-wrapper">
         <MultiSelect
           isDisabled={props.isDisabled}
@@ -94,7 +95,7 @@ export const RegisterTypeSection: FC<Props> = props => {
   );
 };
 
-RegisterTypeSection.displayName = 'RegisterTypeSection';
+RegisterTypeSection.displayName = "RegisterTypeSection";
 
 const getTypeId = (t: IContentType) => t.system.id;
 const getTypeName = (t: IContentType) => t.system.name;

@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, memo } from "react";
 
 type Props = Readonly<{
   phrase: string;
@@ -24,12 +24,14 @@ export const PhraseHighlighter: FC<Props> = memo(props =>
             };
           }, { currentPosition: 0, result: [] as string[] })
           .result
-          .map((part, i) => part.toLowerCase() === props.phrase.toLowerCase()
-            ? <b key={i}>{part}</b>
-            : <span key={i}>{part}</span>)}
+          .map((part, i) =>
+            part.toLowerCase() === props.phrase.toLowerCase()
+              ? <b key={i}>{part}</b>
+              : <span key={i}>{part}</span>
+          )}
       </>
     )
-    : <span>{props.children}</span>,
+    : <span>{props.children}</span>
 );
 
-PhraseHighlighter.displayName = 'PhraseHighlighter';
+PhraseHighlighter.displayName = "PhraseHighlighter";
