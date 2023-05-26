@@ -35,7 +35,13 @@
       "kontent-ai",
       "kontent-ai/react",
       "kontent-ai/jest"
-    ]
+    ],
+    "parserOptions": {
+      "project": [
+        "src/functions/tsconfig.json",
+        "tsconfig.json"
+      ]
+    }
   },
   "browserslist": {
     "production": [
