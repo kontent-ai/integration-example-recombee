@@ -29,6 +29,8 @@ export const handler: Handler = async (event) => {
   const recombeeConfig: RecombeeConfiguration = {
     database: recombeeApiId,
     key: RECOMBEE_API_KEY,
+    region: process.env.RECOMBEE_REGION,
+    baseUri: process.env.RECOMBEE_BASE_URI,
   };
 
   const signitureHelper = new SignatureHelper();
@@ -68,7 +70,7 @@ export const handler: Handler = async (event) => {
             .filter(item => typesToWatch.includes(item.type) && languagesToWatch.includes(item.language))
             .map(async (item) => {
               const kontentConfig: KontentConfiguration = {
-                projectId: webhook.message.project_id,
+                environmentId: webhook.message.project_id,
                 contentType: item.type,
                 language: item.language,
               };

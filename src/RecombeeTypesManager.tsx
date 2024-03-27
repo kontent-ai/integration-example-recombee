@@ -44,7 +44,7 @@ export const RecombeeTypesManager: FC = () => {
       });
       setRegisteredTypesIds(JSON.parse(element.value ?? "[]"));
 
-      new DeliveryClient({ projectId: context.projectId })
+      new DeliveryClient({ environmentId: context.projectId })
         .types()
         .toPromise()
         .then(response => setAllTypes(new Map(response.data.items.map(t => [t.system.id, t]))));

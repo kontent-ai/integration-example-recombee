@@ -10,12 +10,14 @@ const getConfiguration = (body: string): RecommendationProjectConfiguration => {
   const jsonBody = JSON.parse(body);
   return {
     kontent: {
-      projectId: jsonBody.projectId,
+      environmentId: jsonBody.projectId,
       language: jsonBody.language,
       contentType: jsonBody.contentType,
     },
     recombee: {
       database: jsonBody.recombeeApiId,
+      region: process.env.RECOMBEE_REGION,
+      baseUri: process.env.RECOMBEE_BASE_URI,
       key: RECOMBEE_API_KEY || "",
     },
   };

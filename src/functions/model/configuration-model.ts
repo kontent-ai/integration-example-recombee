@@ -1,5 +1,5 @@
 export type KontentConfiguration = {
-  projectId: string;
+  environmentId: string;
   language?: string;
   contentType: string;
 };
@@ -7,6 +7,8 @@ export type KontentConfiguration = {
 export type RecombeeConfiguration = {
   database: string;
   key: string;
+  region: string | undefined;
+  baseUri: string | undefined;
 };
 
 export type RecommendationProjectConfiguration = {

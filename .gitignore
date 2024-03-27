@@ -1,5 +1,6 @@
 .DS_Store
 /dist
+/dist-ssr
 /functions
 
 # local env files
@@ -19,9 +20,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-
-# production
-/build
 
 # dependencies
 /node_modules

@@ -9,7 +9,7 @@ export default class KontentClient {
 
   constructor(config: KontentConfiguration) {
     this.client = new DeliveryClient({
-      projectId: config.projectId,
+      environmentId: config.environmentId,
       globalHeaders: () => [{ header: "X-KC-SOURCE", value: `${packageJson.name};${packageJson.version}` }],
     });
     this.config = config;

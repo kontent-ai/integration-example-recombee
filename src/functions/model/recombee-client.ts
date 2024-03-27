@@ -4,15 +4,20 @@ import * as Recombee from "recombee-api-client";
 import { notNull } from "../../typeguards";
 import { RecombeeConfiguration } from "./configuration-model";
 
+type RecombeeDataType = "int" | "double" | "string" | "boolean" | "timestamp" | "set" | "image" | "imageList";
+
 export default class RecombeeClient {
   config: RecombeeConfiguration;
   client: Recombee.ApiClient;
 
-  private datatypeMap: Map<string, Recombee.PropertyType>;
+  private datatypeMap: Map<string, RecombeeDataType>;
 
   constructor(config: RecombeeConfiguration) {
     this.config = config;
-    this.client = new Recombee.ApiClient(config.database, config.key);
+    this.client = new Recombee.ApiClient(config.database, config.key, {
+      region: config.region,
+      baseUri: config.baseUri,
+    });
 
     this.datatypeMap = new Map([
       ["text", "string"],
@@ -82,12 +87,12 @@ export default class RecombeeClient {
         .map(element => {
           const dataType = this.datatypeMap.get(element.type);
           return dataType
-            ? new Recombee.requests.AddItemProperty(element.codename, dataType)
+            ? new Recombee.requests.AddItemProperty(element.codename ?? "", dataType)
             : null;
         })
         .filter(notNull),
     ];
-    return this.client.send(new Recombee.requests.Batch(requests));
+    return this.client.send(new Recombee.requests.Batch(requests)).then(() => {});
   }
 
   importContent(items: IContentItem[]): Promise<void> {
@@ -103,12 +108,12 @@ export default class RecombeeClient {
       return Promise.resolve();
     }
 
-    return this.client.send(new Recombee.requests.Batch(requests));
+    return this.client.send(new Recombee.requests.Batch(requests)).then(() => {});
   }
 
   deleteContent(ids: string[]): Promise<void> {
     const requests = ids.map(id => new Recombee.requests.DeleteItem(id));
 
-    return this.client.send(new Recombee.requests.Batch(requests));
+    return this.client.send(new Recombee.requests.Batch(requests)).then(() => {});
   }
 }
