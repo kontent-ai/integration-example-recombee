@@ -68,7 +68,7 @@ export const handler: Handler = async (event) => {
             .filter(item => typesToWatch.includes(item.type) && languagesToWatch.includes(item.language))
             .map(async (item) => {
               const kontentConfig: KontentConfiguration = {
-                projectId: webhook.message.project_id,
+                environmentId: webhook.message.project_id,
                 contentType: item.type,
                 language: item.language,
               };

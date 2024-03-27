@@ -1,5 +1,5 @@
 export type KontentConfiguration = {
-  projectId: string;
+  environmentId: string;
   language?: string;
   contentType: string;
 };

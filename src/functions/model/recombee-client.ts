@@ -82,7 +82,7 @@ export default class RecombeeClient {
         .map(element => {
           const dataType = this.datatypeMap.get(element.type);
           return dataType
-            ? new Recombee.requests.AddItemProperty(element.codename, dataType)
+            ? new Recombee.requests.AddItemProperty(element.codename ?? "", dataType)
             : null;
         })
         .filter(notNull),
