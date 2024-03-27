@@ -15,7 +15,7 @@ type Props = Readonly<{
 }>;
 
 const createHotkeysOptions = (enabled: boolean): Options => ({
-  enableOnTags: ["INPUT"],
+  enableOnFormTags: ["INPUT"],
   enabled,
 });
 

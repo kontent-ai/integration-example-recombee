@@ -160,7 +160,7 @@ $ npm install
 $ netlify dev
 ```
 
-The custom element is created with [Create React App](https://create-react-app.dev/).
+The custom element is created with [Vite](https://vitejs.dev/).
 
 ## Contributors
 
