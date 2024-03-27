@@ -29,6 +29,8 @@ export const handler: Handler = async (event) => {
   const recombeeConfig: RecombeeConfiguration = {
     database: recombeeApiId,
     key: RECOMBEE_API_KEY,
+    region: process.env.RECOMBEE_REGION,
+    baseUri: process.env.RECOMBEE_BASE_URI,
   };
 
   const signitureHelper = new SignatureHelper();
